@@ -1,0 +1,1 @@
+insert into permissao(nomepermissao) values('ADMIN'),('USUARIO');
