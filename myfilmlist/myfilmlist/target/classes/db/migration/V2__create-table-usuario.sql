@@ -1,8 +1,8 @@
-create table Usuario(
-                        idUsuario serial not null primary key,
-                        nomeUsuario varchar(50) not null,
+create table usuario(
+                        idusuario serial not null primary key,
+                        nomeusuario varchar(50) not null,
                         email varchar(50) not null unique,
-                        senha varchar(50) not null,
-                        idPermissao int not null,
-                        Foreign key (idPermissao) references Permissao (idPermissao)
+                        senha varchar(255) not null,
+                        idpermissao int not null,
+                        foreign key (idpermissao) references permissao (idpermissao)
 )

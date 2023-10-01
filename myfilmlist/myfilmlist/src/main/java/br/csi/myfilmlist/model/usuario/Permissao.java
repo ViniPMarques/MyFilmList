@@ -1,28 +1,20 @@
 package br.csi.myfilmlist.model.usuario;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table
 public class Permissao {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpermissao;
+    @Column
     private String nomepermissao;
-
-    public Long getIdpermissao() {
-        return idpermissao;
-    }
-
-    public void setIdpermissao(Long idpermissao) {
-        this.idpermissao = idpermissao;
-    }
-
-    public String getNomepermissao() {
-        return nomepermissao;
-    }
-
-    public void setNomepermissao(String nomepermissao) {
-        this.nomepermissao = nomepermissao;
-    }
-
-    public Permissao(Long idpermissao, String nomepermissao) {
-        this.idpermissao = idpermissao;
-        this.nomepermissao = nomepermissao;
-    }
 }

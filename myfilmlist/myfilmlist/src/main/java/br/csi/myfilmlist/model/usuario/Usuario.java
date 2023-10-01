@@ -1,58 +1,41 @@
 package br.csi.myfilmlist.model.usuario;
 
-public class Usuario {
+import java.util.Set;
 
+import br.csi.myfilmlist.model.filme.Assistir;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table
+public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idusuario;
+
+    @Column
     private String nomeusuario;
+    
+    @Column
     private String email;
+
+    @Column
     private String senha;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idpermissao", referencedColumnName = "idpermissao")
     private Permissao permissao;
 
-    public Long getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(Long idusuario) {
-        this.idusuario = idusuario;
-    }
-
-    public String getNomeusuario() {
-        return nomeusuario;
-    }
-
-    public void setNomeusuario(String nomeusuario) {
-        this.nomeusuario = nomeusuario;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Permissao getPermissao() {
-        return permissao;
-    }
-
-    public void setPermissao(Permissao permissao) {
-        this.permissao = permissao;
-    }
-
-    public Usuario(Long idusuario, String nomeusuario, String email, String senha, Permissao permissao) {
-        this.idusuario = idusuario;
-        this.nomeusuario = nomeusuario;
-        this.email = email;
-        this.senha = senha;
-        this.permissao = permissao;
-    }
+    @OneToMany(mappedBy = "usuario")
+    Set<Assistir> filmes;
 }
