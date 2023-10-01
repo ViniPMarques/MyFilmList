@@ -3,33 +3,29 @@ package br.csi.myfilmlist.model.usuario;
 import java.util.Set;
 
 import br.csi.myfilmlist.model.filme.Assistir;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-@Data
 @Entity
-@Table
+@Table(name = "usuario")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idusuario;
 
-    @Column
+    @NotNull
     private String nomeusuario;
-    
-    @Column
+
+    @Email(message = "Email inválido")
     private String email;
 
-    @Column
+    @NotNull
     private String senha;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -37,5 +33,6 @@ public class Usuario {
     private Permissao permissao;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     Set<Assistir> filmes;
 }
