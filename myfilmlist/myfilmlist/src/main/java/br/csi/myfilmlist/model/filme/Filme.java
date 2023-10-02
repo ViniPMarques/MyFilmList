@@ -1,58 +1,48 @@
 package br.csi.myfilmlist.model.filme;
 
-public class Filme {
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.Data;
+
+@Data
+@Entity
+@Table
+public class Filme {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idfilme")
     private Long idfilme;
+
+    @NotBlank(message = "nome filme inválido")
+    @Column
     private String nomefilme;
+
+    @NotBlank(message = "descrição inválida")
+    @Column
     private String descricao;
+
+    @Positive
+    @Column
     private Integer duracao;
+
+    @NotBlank(message = "genero inválido")
+    @Column
     private String genero;
 
-    public Long getIdfilme() {
-        return idfilme;
-    }
-
-    public void setIdfilme(Long idfilme) {
-        this.idfilme = idfilme;
-    }
-
-    public String getNomefilme() {
-        return nomefilme;
-    }
-
-    public void setNomefilme(String nomefilme) {
-        this.nomefilme = nomefilme;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Integer getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(Integer duracao) {
-        this.duracao = duracao;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public Filme(Long idfilme, String nomefilme, String descricao, Integer duracao, String genero) {
-        this.idfilme = idfilme;
-        this.nomefilme = nomefilme;
-        this.descricao = descricao;
-        this.duracao = duracao;
-        this.genero = genero;
-    }
+    @Column
+    private boolean ativo;
+    
+    @OneToMany(mappedBy = "filme")
+    @JsonIgnore
+    Set<Assistir> usuarios;
 }

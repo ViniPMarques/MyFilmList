@@ -1,4 +1,4 @@
-create table Permissao(
-                          idPermissao int not null primary key,
-                          nomePermissao varchar(50) not null
+create table permissao(
+                          idpermissao serial not null primary key,
+                          nomepermissao varchar(50) not null
 )
