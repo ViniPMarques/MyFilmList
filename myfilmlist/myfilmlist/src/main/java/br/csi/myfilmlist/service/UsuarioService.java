@@ -78,8 +78,9 @@ public class UsuarioService {
     }
 
     public void marcarFilmeAssistido(Long idFilme){
+        UserDetails g = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario usuario = usuarioRepository.findByEmail(g.getUsername()).get();
         Filme filme = filmeService.findFilme(idFilme);
-        Usuario usuario = usuarioRepository.getReferenceById(2l);
         Assistir assistirFilme = new Assistir();
         assistirFilme.setId(new AssistirKey(usuario.getIdusuario(), filme.getIdfilme()));
         assistirFilme.setFilme(filme);
@@ -89,10 +90,13 @@ public class UsuarioService {
     }
 
     public List<FilmeDTO> findAllByUsuario(){
-        List<Assistir> ass = assistirService.findAllByUsuario(3l);
+        UserDetails g = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario usuario = usuarioRepository.findByEmail(g.getUsername()).get();
+        List<Assistir> ass = assistirService.findAllByUsuario(usuario.getIdusuario());
         List<FilmeDTO> filmes = new LinkedList<>();
         ass.stream().forEach(a -> {
             FilmeDTO f = new FilmeDTO();
+            f.setIdfilme(a.getId().getIdfilme());
             f.setNomefilme(a.getFilme().getNomefilme());
             f.setDescricao(a.getFilme().getDescricao());
             f.setDuracao(a.getFilme().getDuracao());

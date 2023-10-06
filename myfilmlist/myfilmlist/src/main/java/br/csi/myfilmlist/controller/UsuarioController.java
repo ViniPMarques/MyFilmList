@@ -2,6 +2,7 @@ package br.csi.myfilmlist.controller;
 
 import java.util.List;
 
+import br.csi.myfilmlist.model.filme.Filme;
 import br.csi.myfilmlist.model.filme.FilmeDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,7 @@ public class UsuarioController {
     public UsuarioDTO findUsuario(@PathVariable Long id){
         return this.usuarioService.findUsuario(id);
     }
+    
     @PutMapping("/assistir-filme/{idFilme}")
     public ResponseEntity<String> assistirFilme(@PathVariable Long idFilme){
         this.usuarioService.assistirFilme(idFilme);

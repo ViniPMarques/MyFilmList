@@ -23,6 +23,7 @@ public class FilmeService {
         filme.setDuracao(f.getDuracao());
         filme.setGenero(f.getGenero());
         filme.setNomefilme(f.getNomefilme());
+        filmeRepository.save(filme);
         return filme;
     }
 

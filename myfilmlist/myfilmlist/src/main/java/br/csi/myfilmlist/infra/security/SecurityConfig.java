@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->
                         auth.requestMatchers(HttpMethod.POST,"/login").permitAll()
                                 .requestMatchers("/usuario").permitAll()
-                                .requestMatchers("/filme").hasAuthority("ADMIN")
+                                .requestMatchers("/filme").permitAll()//hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .addFilterBefore(this.autenticacaoFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -43,5 +43,3 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }}
-
-
